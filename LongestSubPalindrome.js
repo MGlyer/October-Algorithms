@@ -1,4 +1,22 @@
 const longestSubPaly = function(s) {
+    const findLongestPaly = (left, right) => {
+        let paly = true
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            left--
+            right++
+        }
+        return s.slice(left+1, right)
+    }
+
+    let longestPaly = ''
+    for (var i = 0; i < s.length; i++) {
+        let oddLengthPal = findLongestPaly(i-1, i+1)
+        let evenLengthPal = findLongestPaly(i, i+1)
+        if (oddLengthPal.length > longestPaly.length) longestPaly = oddLengthPal
+        if (evenLengthPal.length > longestPaly.length) longestPaly = evenLengthPal
+    }
+    return longestPaly
+    
     // let hist = {}
 
     // const isPaly = (str) => {
@@ -34,21 +52,5 @@ const longestSubPaly = function(s) {
     //     }
     // }
     // return longestPaly
-    const findLongestPaly = (left, right) => {
-        let paly = true
-        while (left >= 0 && right < s.length && s[left] === s[right]) {
-            left--
-            right++
-        }
-        return s.slice(left+1, right)
-    }
-
-    let longestPaly = ''
-    for (var i = 0; i < s.length; i++) {
-        let oddLengthPal = findLongestPaly(i-1, i+1)
-        let evenLengthPal = findLongestPaly(i, i+1)
-        if (oddLengthPal.length > longestPaly.length) longestPaly = oddLengthPal
-        if (evenLengthPal.length > longestPaly.length) longestPaly = evenLengthPal
-    }
-    return longestPaly
+    
 }
