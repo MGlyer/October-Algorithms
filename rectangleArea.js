@@ -15,4 +15,26 @@ const rectangleArea = (A, B, C, D, E, F, G, H) => {
 
   let rec1Area = singleRect(A, B, C, D)
   let rec2Area = singleRect(E, F, G, H)
+
+  let alt1Area = singleRect(A, D, G, F)
+  let alt2Area = singleRect(E, H, C, B)
+
+  //what a bout a history object, adding every "square" to the object
+  let hist = {}
+  let count = 0
+  const newSingle = (p1, p2, p3, p4) => {
+    for (var i = p1; i < p3-1; i++) {
+      for (var j = p2; j < p4-1; j++) {
+        var square = `${p1}, ${p2}, ${p1+1}, ${p2+1}`
+        if (!hist.hasOwnProperty(square)) {
+          count++
+          hist[square] = null
+        }
+      }
+    }
+  }
+
+  newSingle(A, B, C, D)
+  newSingle(E, F, G, H)
+  return count
 }
