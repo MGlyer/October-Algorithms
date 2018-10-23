@@ -6,7 +6,7 @@ cityscape photo (Figure A), write a program to output the skyline formed by thes
 collectively (Figure B).
 */
 
-const skyline(array) => {
+const skyline = (array) => {
   //sort array by index 0 of triplet (start of building)
   //declar answer arr
   //declare current height
