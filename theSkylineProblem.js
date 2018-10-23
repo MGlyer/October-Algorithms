@@ -15,13 +15,20 @@ const skyline = (array) => {
 
   let currentHeight = 0;
   let blockEnd = -1
+
+  //left Pass
   for (var i = 0; i < array.length; i++) {
     let building = array[i]
+
+    if (building[0] > blockEnd) {
+      currentHeight = 0
+    }
     
-    if (building[2] > currentHeight || building[0] > blockEnd) {
-      curentHeight = building[2]
+    if (building[2] > currentHeight) {
+      console.log(currentHeight)
+      currentHeight = building[2]
+      console.log(currentHeight)
       city.push([building[0], currentHeight])
-      continue
     }
 
     //tracks when the height should go back to 0
@@ -30,8 +37,26 @@ const skyline = (array) => {
     }
   }
 
+  currentHeight = 0
+  for (var i = array.length-1; i >= 0; i--) {
+    let building = array[i]
 
+    if (building[1] < blockEnd) {
+      currentHeight = 0
+    }
 
+    if (building[2] > currentHeight) {
+      city.push([building[1], currentHeight])
+      currentHeight = building[2]
+    }
+
+    if (building[0] < blockEnd) {
+      blockEnd = building[0]
+    }
+  }
+
+  city.sort((a, b) => a[0] - b[0])
+  return city
 
   //THE BELOW IS A LIE.  DO THE ABOVE INSTEAD
   //sort array by index 0 of triplet (start of building)
@@ -52,3 +77,9 @@ const skyline = (array) => {
         //if heightBene
         //heightBeneth set to that building's height
 }
+
+let figureA = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
+
+let outputA = skyline(figureA)
+
+console.log(outputA)
