@@ -56,30 +56,22 @@ const skyline = (array) => {
   }
 
   city.sort((a, b) => a[0] - b[0])
-  return city
 
-  //THE BELOW IS A LIE.  DO THE ABOVE INSTEAD
-  //sort array by index 0 of triplet (start of building)
-  //declar answer arr
-  //declare current height
-  //declare heightBeneath = 0
-  //declare currentTallEnd = 0
-  //iterate thru array
-    //if height of new building higher than current height
-      //push [LI, Hieght] into answer
-      //current Height = height of building
-      //currentTallEnd = RI
-      //continue to next iteration
-    //else if height less
-      //if RI < currentTall End
-        //continue
-      //else
-        //if heightBene
-        //heightBeneth set to that building's height
+  //failing on some edge cases
+  for (var i = 0; i < city.length; i++) { 
+    if (i < city.length-1 && city[i][0] === city[i+1][0]) {
+      city.splice(i, 1)
+      i--
+    }
+  }
+  return city
 }
 
 let figureA = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
+let figureB = [[1,2,1],[1,2,2],[1,2,3]]
 
 let outputA = skyline(figureA)
+let outputB = skyline(figureB)
 
-console.log(outputA)
+// console.log(outputA)
+// console.log(outputB)
