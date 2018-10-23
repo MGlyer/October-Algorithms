@@ -25,9 +25,7 @@ const skyline = (array) => {
     }
     
     if (building[2] > currentHeight) {
-      console.log(currentHeight)
       currentHeight = building[2]
-      console.log(currentHeight)
       city.push([building[0], currentHeight])
     }
 
