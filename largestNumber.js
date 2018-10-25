@@ -29,15 +29,15 @@ const largestNumber = (nums) => {
     })
 
     arr.sort((a, b) => {
-      let a = a
-      let b = b
-      while (a.length < largestLength) {
-        a += dummy
+      let first = a
+      let second = b
+      while (first.length < largestLength) {
+        first += dummy
       }
-      while (b.length < largestLength) {
-        b += dummy
+      while (second.length < largestLength) {
+        second += dummy
       }
-      if (Number(a) > Number(b)) return -1
+      if (Number(first) > Number(second)) return -1
       else return 1
     })
   }
@@ -46,22 +46,34 @@ const largestNumber = (nums) => {
 
   for (var key in grouping) {
     if (grouping[key].length > 1) {
-      arrSorter = grouping[key]
+      arrSorter(grouping[key])
     }
     answerArr.push(grouping[key])
   }
 
   answerArr.sort((a, b) => {
-    if (Number(a[0]) > Number(b[0])) return -1
+    if (Number(a[0][0]) > Number(b[0][0])) return -1
     else return 1
   })
-  answerArr.reverse()
+  console.log(answerArr)
 
   let answer = ''
   answerArr.forEach((arr) => {
     let item = arr.join('')
-    answer.push(item)
+    answer += item
   })
 
   return answer
 }
+
+let input1 = [10, 2]
+let input2 = [3,30,34,5,9]
+let input3 = [7, 12, 2353, 24, 9, 97]
+
+let output1 = largestNumber(input1) // ​​​​​210​​​​​
+let output2 = largestNumber(input2) // ​​​​​9534330​​​​​
+let output3 = largestNumber(input3) // ​​​​​997724235312​​​​​
+
+// console.log(output1) 
+// console.log(output2) 
+// console.log(output3) 
