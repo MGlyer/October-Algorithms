@@ -21,12 +21,14 @@ where n is the total number of rows in the triangle.
 const minimumTotal = (triangle) => {
   let total = 0
   let index = 0
-  triangle.forEach((arr) => {
-    if (arr[index] > arr[index+1]) {
+  triangle.forEach((arr, i) => {
+    if (i === 0) {
       total += arr[index]
+      console.log(arr[index])
     } else {
-      total += arr[index +1]
-      index++
+      if (arr[index] > arr[index+1]) index += 1
+      total += arr[index]
+      console.log(arr[index])
     }
   })
   return total
@@ -38,4 +40,6 @@ let matrix1 = [
 [6,5,7],
 [4,1,8,3]
 ]
-console.log(minimumTotal(matrix1))
+let matrix2 = [[-1],[2,3],[1,-1,-3]]
+// console.log(minimumTotal(matrix1))
+console.log(minimumTotal(matrix2))
