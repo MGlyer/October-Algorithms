@@ -19,19 +19,41 @@ where n is the total number of rows in the triangle.
 */
 
 const minimumTotal = (triangle) => {
-  let total = 0
-  let index = 0
-  triangle.forEach((arr, i) => {
-    if (i === 0) {
-      total += arr[index]
-      console.log(arr[index])
+  // let total = 0
+  // let index = 0
+  // triangle.forEach((arr, i) => {
+  //   if (i === 0) {
+  //     total += arr[index]
+  //   } else {
+  //     if (arr[index] > arr[index+1]) index += 1
+  //     total += arr[index]
+  //   }
+  // })
+  // return total
+
+  let least;
+  let current = 0
+  const recurse = (arr, ind, matrixInd) => {
+    if (matrixInd === triangle.length-1) {
+      let current1 = current + arr[ind]
+      let current2 = current + arr[ind+1]
+      if (current1 < least || least === undefined) {
+        least = current1
+      }
+      if (current2 < least) {
+        least = current2
+      }
     } else {
-      if (arr[index] > arr[index+1]) index += 1
-      total += arr[index]
-      console.log(arr[index])
+      current += arr[ind]
+      recurse(triangle[matrixInd+1], ind, matrixInd+1)
+      current = current - arr[ind] + arr[ind+1]
+      recurse(triangle[matrixInd+1], ind+1, matrixInd+1)
+      current -= arr[ind+1]
     }
-  })
-  return total
+  }
+
+  recurse(triangle[0], 0, 0)
+  return least
 }
 
 let matrix1 = [
