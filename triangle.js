@@ -59,10 +59,12 @@ const minimumTotal = (triangle) => {
 
   const optimalChooser = (currInd, currRowInd, prevRowInd) => {
     let currentCost = triangle[currRowInd][currInd]
-    let option1 = currentCost + triangle[prevRowInd][currInd]
-    let option2 = currentCost + triangle[prevRowInd][currInd+1]
-    let optimal = Math.min(option1, option2)
-    return optimal
+    let option1 = currentCost + costMatrix[prevRowInd][currInd-1]
+    let option2 = currentCost + costMatrix[prevRowInd][currInd]
+
+    if (isNaN(option1)) return option2
+    else if (isNaN(option2)) return option1
+    else return Math.min(option1, option2)
   }
 
   const optimalRowMaker = (currRowInd) => {
@@ -73,6 +75,15 @@ const minimumTotal = (triangle) => {
     })
     return newRow
   }
+
+  triangle.forEach((row, ind) => {
+    if (ind !== 0) {
+      let optimalRow = optimalRowMaker(ind)
+      costMatrix.push(optimalRow)
+    }
+  })
+
+  return Math.min(...costMatrix[costMatrix.length-1])
 }
 
 let matrix1 = [
@@ -83,4 +94,4 @@ let matrix1 = [
 ]
 let matrix2 = [[-1],[2,3],[1,-1,-3]]
 // console.log(minimumTotal(matrix1))
-console.log(minimumTotal(matrix2))
+// console.log(minimumTotal(matrix2))
