@@ -31,29 +31,48 @@ const minimumTotal = (triangle) => {
   // })
   // return total
 
-  let least;
-  let current = 0
-  const recurse = (arr, ind, matrixInd) => {
-    if (matrixInd === triangle.length-1) {
-      let current1 = current + arr[ind]
-      let current2 = current + arr[ind+1]
-      if (current1 < least || least === undefined) {
-        least = current1
-      }
-      if (current2 < least) {
-        least = current2
-      }
-    } else {
-      current += arr[ind]
-      recurse(triangle[matrixInd+1], ind, matrixInd+1)
-      current = current - arr[ind] + arr[ind+1]
-      recurse(triangle[matrixInd+1], ind+1, matrixInd+1)
-      current -= arr[ind+1]
-    }
+  // let least;
+  // let current = 0
+  // const recurse = (arr, ind, matrixInd) => {
+  //   if (matrixInd === triangle.length-1) {
+  //     let current1 = current + arr[ind]
+  //     let current2 = current + arr[ind+1]
+  //     if (current1 < least || least === undefined) {
+  //       least = current1
+  //     }
+  //     if (current2 < least) {
+  //       least = current2
+  //     }
+  //   } else {
+  //     current += arr[ind]
+  //     recurse(triangle[matrixInd+1], ind, matrixInd+1)
+  //     current = current - arr[ind] + arr[ind+1]
+  //     recurse(triangle[matrixInd+1], ind+1, matrixInd+1)
+  //     current -= arr[ind+1]
+  //   }
+  // }
+
+  // recurse(triangle[0], 0, 0)
+  // return least
+
+  let costMatrix = [triangle[0]]
+
+  const optimalChooser = (currInd, currRowInd, prevRowInd) => {
+    let currentCost = triangle[currRowInd][currInd]
+    let option1 = currentCost + triangle[prevRowInd][currInd]
+    let option2 = currentCost + triangle[prevRowInd][currInd+1]
+    let optimal = Math.min(option1, option2)
+    return optimal
   }
 
-  recurse(triangle[0], 0, 0)
-  return least
+  const optimalRowMaker = (currRowInd) => {
+    let newRow = []
+    triangle[currRowInd].forEach((element, ind) => {
+      let toPush = optimalChooser(ind, currRowInd, currRowInd-1)
+      newRow.push(toPush)
+    })
+    return newRow
+  }
 }
 
 let matrix1 = [
